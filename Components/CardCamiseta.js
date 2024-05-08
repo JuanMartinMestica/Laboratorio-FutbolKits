@@ -1,28 +1,25 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 
-export default function CardCamiseta() {
-  const [imagenProducto, setImagenProducto] = useState(
-    "https://d22fxaf9t8d39k.cloudfront.net/47a5210bee122e1abaa5bb8740461fc99d92e88d9defd311e7edd89240a4f51c249041.png"
-  );
+export default function CardCamiseta({ nombreProducto, imagenUrl, subtitulo, tipoCamiseta }) {
 
   return (
     <TouchableOpacity style={styles.card}>
-      <Text style={styles.nombreProducto}>Boca Jrs. Titular</Text>
+      <Text style={styles.nombreProducto}>{nombreProducto}</Text>
 
       <View style={styles.containerImagen}>
         <Image
           style={styles.imagenProducto}
           source={{
-            uri: imagenProducto,
+            uri: imagenUrl,
           }}
         />
       </View>
 
-      <Text style={styles.subtitulo}>América</Text>
+      <Text style={styles.subtitulo}>{subtitulo}</Text>
 
       <View style={styles.tipoCamiseta}>
-        <Text style={styles.tag}>Alternativa</Text>
+        <Text style={styles.tag}>{tipoCamiseta}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -34,6 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 30,
     paddingVertical: 20,
+    marginVertical:10
   },
   nombreProducto: {
     fontWeight: "300",
