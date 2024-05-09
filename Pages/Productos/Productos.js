@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList} from "react-native";
 import { Picker } from "@react-native-picker/picker"; 
-import CardCamiseta from "../Components/CardCamiseta";
+import CardCamiseta from "../../Components/CardCamiseta/CardCamiseta";
 import axios from "axios";
-import { API_URL } from "../Constants/Constants";
+import { API_URL } from "../../Constants/Constants";
+import { styles } from "./styles";
+
 
 const Productos = () => {
 
@@ -118,17 +120,3 @@ const Productos = () => {
 };
 
 export default Productos;
-
-const styles = StyleSheet.create({
-  area: {
-    flex: 1,
-    paddingVertical: 50,
-    paddingHorizontal: 20,
-  },
-  tituloSeccion: {
-    textAlign: "center",
-    margin: 20,
-    fontWeight: "400",
-    fontSize: 20,
-  },
-});

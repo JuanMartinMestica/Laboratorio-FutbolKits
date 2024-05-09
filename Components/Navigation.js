@@ -3,13 +3,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
 //Pages
-import Home from "../Pages/Home";
-import Productos from "../Pages/Productos";
-import Camiseta from "../Pages/Camiseta";
+import Home from "../Pages/Home/Home";
+import Productos from "../Pages/Productos/Productos";
+import Camiseta from "../Pages/Camiseta/Camiseta";
 import { NavigationContainer } from "@react-navigation/native";
-import Carga from "../Pages/Carga";
+import Carga from "../Pages/Carga/Carga";
 
-import { Ionicons } from "@expo/vector-icons"; // Importa los iconos de Ionicons
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

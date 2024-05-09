@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ImageBackground } from "react-native";
-import NumberCard from "../Components/NumberCard";
-import background from "../assets/backhome.jpg";
+import NumberCard from "../../Components/NumberCard/NumberCard";
+import background from "../../assets/backhome.jpg";
+import { styles } from "./styles";
 
-import { API_URL } from "../Constants/Constants";
+
+import { API_URL } from "../../Constants/Constants";
 import axios from "axios";
 
 const Home = () => {
@@ -74,33 +76,6 @@ const Home = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  area: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    marginVertical: 10,
-    color: "white",
-  },
-  main: {
-    fontWeight: 900,
-  },
-  cardsContainer: {
-    marginTop: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  subtitle: {
-    textAlign: "center",
-    color: "white",
-  },
-  row: {
-    flexDirection: "row",
-  },
-});
+
 
 export default Home;

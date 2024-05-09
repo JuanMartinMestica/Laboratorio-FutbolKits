@@ -1,16 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { StyleSheet } from "react-native";
 
-export default function NumberCard({title, number}) {
-  return (
-    <View style={styles.card}>
-      <Text style={styles.number}>{number}</Text>
-      <Text>{title}</Text>
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     card: {
         backgroundColor: "#dbdbdb",
         padding: 20,
