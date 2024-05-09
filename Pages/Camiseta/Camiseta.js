@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../Constants/Constants";
 import { styles } from "./styles";
+import { obtenerDetalleCamiseta } from "../../Service/CamisetaService";
 
 export default function Camiseta({ route }) {
   const [datosCamiseta, setDatosCamiseta] = useState({});
@@ -10,17 +9,18 @@ export default function Camiseta({ route }) {
   //Acceso al nombre de producto a través de "route"
   const nombreProducto = route.params.nombreProducto;
 
-  const obtenerDetalleCamiseta = async () => {
-    //Consumo de productos desde la API
-    const response = await axios.get(`${API_URL}/?nombre=${nombreProducto}`);
-
-    setDatosCamiseta(response.data[0]);
-  };
-
   useEffect(() => {
-    obtenerDetalleCamiseta();
-  }, []);
-
+    const fetchData = async () => {
+      try {
+        const data = await obtenerDetalleCamiseta(nombreProducto);
+        setDatosCamiseta(data);
+      } catch (error) {
+        console.log(error)
+        console.log("Error al obtener información con Service");
+      }
+    };
+    fetchData();
+  }, [nombreProducto]);
 
   return (
     <View style={styles.container}>
@@ -65,5 +65,3 @@ export default function Camiseta({ route }) {
     </View>
   );
 }
-
-

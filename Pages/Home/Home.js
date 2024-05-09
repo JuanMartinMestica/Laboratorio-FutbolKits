@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import { Text, View, ImageBackground } from "react-native";
 import NumberCard from "../../Components/NumberCard/NumberCard";
 import background from "../../assets/backhome.jpg";
 import { styles } from "./styles";
-
-
-import { API_URL } from "../../Constants/Constants";
-import axios from "axios";
+import { obtenerResumen } from "../../Service/ResumenService";
 
 const Home = () => {
   {
@@ -15,29 +12,21 @@ const Home = () => {
 
   const [resumen, setResumen] = useState(null);
 
-  const obtenerResumen = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/resumen`);
-      const data = response.data;
-
-      // Se construye el resumen en un solo objeto en lugar de array para mostrar en los componentes
-      const resumen = data.reduce((resumenApp, item) => {
-        resumenApp[item.continente] = parseInt(item.cantidad);
-
-        return resumenApp;
-      }, {});
-
-      setResumen(resumen);
-
-    } catch (error) {
-
-      console.error("Error al llamar al endpoint:", error);
-      
-    }
-  };
-
   useEffect(() => {
-    obtenerResumen();
+    const fetchData = async () => {
+      try {
+
+        const data = await obtenerResumen();
+        setResumen(data);
+
+      } catch (error) {
+
+        console.log(error);
+        console.log("Error al obtener el resumen con Service")
+
+      }
+    };
+    fetchData()
   }, []);
 
   {

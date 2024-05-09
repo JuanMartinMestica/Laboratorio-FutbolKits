@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, FlatList} from "react-native";
+import { Text, View, FlatList} from "react-native";
 import { Picker } from "@react-native-picker/picker"; 
 import CardCamiseta from "../../Components/CardCamiseta/CardCamiseta";
-import axios from "axios";
-import { API_URL } from "../../Constants/Constants";
+import { obtenerProductos } from "../../Service/ProductosService";
+
+
 import { styles } from "./styles";
 
 
@@ -22,30 +23,30 @@ const Productos = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
 
-  //Estado para agregar a la url la selección del continente, inicialmente vacío para no filtrar por todos
+  //Estado para agregar a la url la selección del continente, inicialmente vacío para obtener todos
   const [selectedContinente, setSelectedContinente] = useState('&');
 
 
-
   //========================================================= Llamado al endpoint =========================================================
-  const obtenerProductos = async () => {
+  const obtenerProductosPaginado = async () => {
 
     setIsLoading(true);
     try {
 
-      console.log(`${API_URL}/?limit=${limit}&page=${page}${selectedContinente}`)
-
-      //Consumo de productos desde la API
-      const response = await axios.get(`${API_URL}/?limit=${limit}&page=${page}${selectedContinente}`);
+      //Consumo de productos llamando al service
+      const data = await obtenerProductos(page, limit, selectedContinente);
 
       //Cada llamado a la API se agregan 5 productos al estado de productos
-      setProductos(prevProductos => [...prevProductos, ...response.data]);
+      setProductos((prevProductos) => [...prevProductos, ...data]);
+
       //Se incrementa la página para traer más productos de la API
       setPage(page + 1);
 
 
     } catch (error) {
-      console.error("Error al llamar al endpoint:", error);
+
+      console.error("Error al llamar al utilizar el service:", error);
+
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +70,7 @@ const Productos = () => {
   //Carga inicial de los productos  
   useEffect(() => {
 
-    obtenerProductos();
+    obtenerProductosPaginado();
      
   }, [selectedContinente]);
 
@@ -79,7 +80,6 @@ const Productos = () => {
   return (
     <View style={styles.area}>
       <Text style={styles.tituloSeccion}>Catálogo de Camisetas</Text>
-
 
       {/* Filtro para seleccionar un continente en particular */}
       <Picker
@@ -111,7 +111,7 @@ const Productos = () => {
 
         
       //Cuando se llega al final se incrementa la página y por ende, se traen 5 productos más 
-        onEndReached={obtenerProductos}
+        onEndReached={obtenerProductosPaginado}
       //Umbral 0.1, es decir cuando se tiene 10% de los productos, se carga más 
         onEndReachedThreshold={0.1}
       />
