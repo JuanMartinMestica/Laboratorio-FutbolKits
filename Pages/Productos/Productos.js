@@ -87,11 +87,11 @@ const Productos = () => {
         onValueChange={(itemValue) => handleContinenteChange(itemValue)}
       >
         <Picker.Item label="Todos" value="&" />
-        <Picker.Item label="América" value="&continente=América" />
+        <Picker.Item label="América" value="&continente=America" />
         <Picker.Item label="Europa" value="&continente=Europa" />
         <Picker.Item label="Asia" value="&continente=Asia" />
-        <Picker.Item label="África" value="&continente=África" />
-        <Picker.Item label="Oceanía" value="&continente=Oceanía" />        
+        <Picker.Item label="África" value="&continente=Africa" />
+        <Picker.Item label="Oceanía" value="&continente=Oceania" />        
       </Picker>
 
 

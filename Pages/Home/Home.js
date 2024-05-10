@@ -46,7 +46,7 @@ const Home = () => {
 
         {/* Primera Fila */}
         <View style={styles.row}>
-          <NumberCard number={resumen && resumen.América} title="America" />
+          <NumberCard number={resumen && resumen.America} title="America" />
         </View>
 
         {/* Segunda Fila */}
@@ -57,8 +57,8 @@ const Home = () => {
 
         {/* Tercera Fila */}
         <View style={styles.row}>
-          <NumberCard number={resumen && resumen.África}  title="Africa" />
-          <NumberCard number={resumen && resumen.Oceanía}  title="Oceanía" />
+          <NumberCard number={resumen && resumen.Africa}  title="Africa" />
+          <NumberCard number={resumen && resumen.Oceania}  title="Oceanía" />
         </View>
       </View>
     </ImageBackground>
