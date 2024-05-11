@@ -55,5 +55,17 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     color: "#afafaf",
     fontWeight: "800",
+  }, 
+  botonCarga: {
+    backgroundColor: "#ff6600",
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 20
+  },
+  textoBoton: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center"
   },
 });
