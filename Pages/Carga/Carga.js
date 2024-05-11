@@ -78,6 +78,8 @@ export default function Carga() {
     setExitoFoto(false);
     setPrevisualizacion(CAMISETA_PLACEHOLDER);
 
+
+    //Feedback para el usuario
     success? Alert.alert("Éxito", "La camiseta se ha cargado correctamente"): Alert.alert("Error", "La camiseta no se pudo cargar correctamente")
 
     } catch (err) {
@@ -100,6 +102,8 @@ export default function Carga() {
       </Text>
 
       <View style={styles.formularioContainer}>
+
+
         {/* Input para nombre */}
         <Text style={styles.label}>Nombre</Text>
         <TextInput
@@ -210,10 +214,11 @@ export default function Carga() {
         </Picker>
 
         {/* Botón  */}
-
         <TouchableOpacity style={styles.botonCarga} onPress={submitCamiseta}>
           <Text style={styles.textoBoton}>Cargar Camiseta</Text>
         </TouchableOpacity>
+
+        
       </View>
     </ScrollView>
   );
