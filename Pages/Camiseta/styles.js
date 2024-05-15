@@ -47,19 +47,5 @@ export const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center"
-    },
-    row: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginBottom: 10,
-    },
-    label: {
-      fontWeight: "500",
-      fontSize: 18,
-    },
-    value: {
-      fontSize: 18,
-      marginLeft: 10,
-      fontWeight: "300"
     }
   });

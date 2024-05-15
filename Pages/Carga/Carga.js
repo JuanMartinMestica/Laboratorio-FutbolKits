@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  TextInput,
   Image,
   ScrollView,
   TouchableOpacity,
@@ -16,6 +15,9 @@ import {
   OPCIONES_TIPO,
 } from "../../Constants/Constants";
 import { Picker } from "@react-native-picker/picker";
+import CustomTextInput from "../../Components/TextInput/CustomTextInput";
+import CustomSelectInput from "../../Components/CustomSelectInput/CustomSelectInput";
+
 
 export default function Carga() {
   //Datos de entrada
@@ -52,36 +54,58 @@ export default function Carga() {
     }
   };
 
+
+  const validarDatos = () => {
+
+    let validacion = true;
+
+    if (!nombre || !temporada || !link_foto || !continente || !equipo || !liga || !tipo) {
+      validacion = false;
+    }
+
+    return validacion;
+  };
+
   const submitCamiseta = async () => {
 
     try {
 
-    // Se envían los datos al service para poder cargar la camiseta
-    const success = await cargarCamiseta({
-      nombre,
-      temporada,
-      link_foto,
-      continente,
-      equipo,
-      liga,
-      tipo,
-    });
+      if(validarDatos()) {
 
-    // Se limpia el formulario después de cargar la camiseta
-    setNombre("");
-    setTemporada("");
-    setlink_foto("");
-    setContinente("");
-    setEquipo("");
-    setLiga("");
-    setTipo("");
-    setExitoFoto(false);
-    setPrevisualizacion(CAMISETA_PLACEHOLDER);
+        // Se envían los datos al service para poder cargar la camiseta
+        const success = await cargarCamiseta({
+          nombre,
+          temporada,
+          link_foto,
+          continente,
+          equipo,
+          liga,
+          tipo,
+        });
+
+        // Se limpia el formulario después de cargar la camiseta
+        setNombre("");
+        setTemporada("");
+        setlink_foto("");
+        setContinente("");
+        setEquipo("");
+        setLiga("");
+        setTipo("");
+        setExitoFoto(false);
+        setPrevisualizacion(CAMISETA_PLACEHOLDER);
 
 
-    //Feedback para el usuario
-    success? Alert.alert("Éxito", "La camiseta se ha cargado correctamente"): Alert.alert("Error", "La camiseta no se pudo cargar correctamente")
+        //Feedback para el usuario
+        success? Alert.alert("Éxito", "La camiseta se ha cargado correctamente"): Alert.alert("Error", "La camiseta no se pudo cargar correctamente")
 
+        
+      } else {
+        
+        Alert.alert("Error", "Por favor complete todos los campos");
+
+      }
+
+  
     } catch (err) {
 
       console.log(err)
@@ -105,44 +129,15 @@ export default function Carga() {
 
 
         {/* Input para nombre */}
-        <Text style={styles.label}>Nombre</Text>
-        <TextInput
-          style={styles.input}
-          value={nombre}
-          onChangeText={(texto) => {
-            setNombre(texto);
-          }}
-          placeholder="Ingrese el nombre de la camiseta"
-          keyboardType="default"
-          autoCapitalize="words"
-        />
+        <CustomTextInput label="Nombre" placeholder="Ingrese el nombre de la camiseta" valueState={nombre} onChangeText={setNombre}/>
 
         {/* Input para temporada */}
-        <Text style={styles.label}>Temporada</Text>
-        <TextInput
-          style={styles.input}
-          value={temporada}
-          onChangeText={(texto) => {
-            setTemporada(texto);
-          }}
-          placeholder="Ingrese la temporada"
-          keyboardType="default"
-          autoCapitalize="words"
-        />
+        <CustomTextInput label="Temporada" placeholder="Ingrese la temporada" valueState={temporada} onChangeText={setTemporada}/>
 
         {/* Input para link de foto */}
-        <Text style={styles.label}>Foto</Text>
-        <TextInput
-          style={styles.input}
-          value={link_foto}
-          onChangeText={handlePrevisualizacion}
-          placeholder="Ingrese el link de la foto"
-          keyboardType="default"
-          autoCapitalize="words"
-        />
+        <CustomTextInput label="Foto" placeholder="Ingrese el link de la foto" valueState={link_foto} onChangeText={handlePrevisualizacion}/>
 
         {/* Previsualización */}
-        <Text style={styles.label}>Previsualización foto</Text>
         <View style={styles.containerImagen}>
           <Image
             style={styles.imagenProducto}
@@ -156,62 +151,18 @@ export default function Carga() {
         </Text>
 
         {/* Continente */}
-        <Text style={styles.label}>Continente</Text>
-        <Picker
-          selectedValue={continente}
-          onValueChange={(itemValue) => setContinente(itemValue)}
-          style={styles.input}
-        >
-          {OPCIONES_CONTINENTES.map((opcion, index) => (
-            <Picker.Item
-              key={index}
-              label={opcion.label}
-              value={opcion.value}
-            />
-          ))}
-        </Picker>
+        <CustomSelectInput label="Continente" selectedValue={continente}  onValueChange={setContinente} options={OPCIONES_CONTINENTES}/>
+
 
         {/* Equipo */}
-        <Text style={styles.label}>Equipo</Text>
-        <TextInput
-          style={styles.input}
-          value={equipo}
-          onChangeText={(valorEquipo) => {
-            setEquipo(valorEquipo);
-          }}
-          placeholder="Ingrese el nombre del equipo"
-          keyboardType="default"
-          autoCapitalize="words"
-        />
+        <CustomTextInput label="Equipo" placeholder="Ingrese el nombre del equipo" valueState={equipo} onChangeText={setEquipo}/>
 
         {/* Liga */}
-        <Text style={styles.label}>Liga</Text>
-        <TextInput
-          style={styles.input}
-          value={liga}
-          onChangeText={(valorLiga) => {
-            setLiga(valorLiga);
-          }}
-          placeholder="Ingrese el nombre del equipo"
-          keyboardType="default"
-          autoCapitalize="words"
-        />
+        <CustomTextInput label="Liga" placeholder="Ingrese la liga" valueState={liga} onChangeText={setLiga}/>
+        
 
         {/* Tipo */}
-        <Text style={styles.label}>Tipo</Text>
-        <Picker
-          selectedValue={tipo}
-          onValueChange={(itemValue) => setTipo(itemValue)}
-          style={styles.input}
-        >
-          {OPCIONES_TIPO.map((opcion, index) => (
-            <Picker.Item
-              key={index}
-              label={opcion.label}
-              value={opcion.value}
-            />
-          ))}
-        </Picker>
+        <CustomSelectInput label="Tipo" selectedValue={tipo}  onValueChange={setTipo} options={OPCIONES_TIPO}/>
 
         {/* Botón  */}
         <TouchableOpacity style={styles.botonCarga} onPress={submitCamiseta}>

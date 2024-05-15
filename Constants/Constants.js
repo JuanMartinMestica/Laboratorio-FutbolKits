@@ -10,7 +10,6 @@ export const OPCIONES_CONTINENTES = [
     { label: 'Oceanía', value: 'Oceania' }
   ];
 
-
   export const OPCIONES_TIPO = [
     { label: 'Titular', value: 'Titular' },
     { label: 'Suplente', value: 'Suplente' },

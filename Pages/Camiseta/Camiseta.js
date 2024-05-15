@@ -2,6 +2,7 @@ import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
 import { obtenerDetalleCamiseta } from "../../Service/CamisetaService";
+import LabelCamiseta from "../../Components/LabelCamiseta/LabelCamiseta";
 
 export default function Camiseta({ route }) {
   const [datosCamiseta, setDatosCamiseta] = useState({});
@@ -15,7 +16,7 @@ export default function Camiseta({ route }) {
         const data = await obtenerDetalleCamiseta(nombreProducto);
         setDatosCamiseta(data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
         console.log("Error al obtener información con Service");
       }
     };
@@ -42,25 +43,10 @@ export default function Camiseta({ route }) {
       <Text style={styles.tag}>{datosCamiseta.continente}</Text>
 
       <View style={styles.datos}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Equipo:</Text>
-          <Text style={styles.value}>{datosCamiseta.equipo}</Text>
-        </View>
-
-        <View style={styles.row}>
-          <Text style={styles.label}>Liga:</Text>
-          <Text style={styles.value}>{datosCamiseta.liga}</Text>
-        </View>
-
-        <View style={styles.row}>
-          <Text style={styles.label}>Temporada:</Text>
-          <Text style={styles.value}>{datosCamiseta.temporada}</Text>
-        </View>
-
-        <View style={styles.row}>
-          <Text style={styles.label}>Tipo:</Text>
-          <Text style={styles.value}>{datosCamiseta.tipo}</Text>
-        </View>
+        <LabelCamiseta nombre="Equipo:" value={datosCamiseta.equipo} />
+        <LabelCamiseta nombre="Liga:" value={datosCamiseta.liga} />
+        <LabelCamiseta nombre="Temporada:" value={datosCamiseta.temporada} />
+        <LabelCamiseta nombre="Tipo:" value={datosCamiseta.tipo} />
       </View>
     </View>
   );
